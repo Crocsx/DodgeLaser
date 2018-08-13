@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour {
 
     void Awake()
     {
-        TouchManager.instance.OnStartTouch += OnTouch;
         GameManager.instance.OnStartGame += StartGame;
     }
 
@@ -27,7 +26,8 @@ public class PlayerMovement : MonoBehaviour {
     // Use this for initialization
     void StartGame()
     {
-
+        TouchManager.instance.OnStartTouch += OnTouch;
+        cRigidbody.simulated = true;
     }
 
     void OnTouch(TouchStruct touchStruct)

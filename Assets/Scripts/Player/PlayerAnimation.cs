@@ -11,8 +11,8 @@ public class PlayerAnimation : MonoBehaviour
     Vector3[] verticesDefaultPosition;
 
 
-    public float width = 4;
-    public float height = 4;
+    float width = 0.5f;
+    float height = 0.5f;
     public Material material;
 
     Mesh m_meshTriangle;
