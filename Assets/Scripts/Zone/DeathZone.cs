@@ -1,0 +1,18 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DeathZone : MonoBehaviour {
+
+    private void Start()
+    {
+        GetComponent<Collider2D>().isTrigger = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player")){
+            collision.GetComponent<PlayerDamage>().Kill();
+        }
+    }
+}

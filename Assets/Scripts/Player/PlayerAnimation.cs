@@ -28,6 +28,7 @@ public class PlayerAnimation : MonoBehaviour
     /// | / | \ |
     /// 0 - 1 - 2
     /// </summary>
+    /// 
 	void Start()
     {
         m_meshTriangle = GetComponent<MeshFilter>().mesh;
@@ -75,6 +76,9 @@ public class PlayerAnimation : MonoBehaviour
     /// </summary>
     void Animation()
     {
+        if (!cRigidbody.simulated)
+            return;
+
         float timer = cRigidbody.velocity.y > 0 ? animUpTimer : animDownTIMER;
         Vector3[] vertices = m_meshTriangle.vertices;
         if(timer < animTIMER)

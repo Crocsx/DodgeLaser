@@ -23,7 +23,7 @@ public class StageManager : MonoBehaviour {
         GameManager.instance.InitGame();
     }
 
-    void StartStage(TouchStruct touch, Vector2 direction)
+    public void StartStage()
     {
         GameManager.instance.StartGame();
     }
@@ -36,6 +36,11 @@ public class StageManager : MonoBehaviour {
     public void ResumeStage()
     {
         GameManager.instance.ResumeGame();
+    }
+
+    public void FinishStage()
+    {
+        GameManager.instance.FinishGame();
     }
 
     void OnDestroy ()
