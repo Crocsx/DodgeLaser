@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Movement = IdleMovement;
+
+
         collider = GetComponent<BoxCollider2D>();
         collider.enabled = false;
     }

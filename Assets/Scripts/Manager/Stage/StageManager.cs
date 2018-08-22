@@ -46,4 +46,14 @@ public class StageManager : MonoBehaviour {
     void OnDestroy ()
     {
     }
+
+    public void ReturnMenu()
+    {
+        GameManager.instance.LoadScene("Home");
+    }
+
+    public void ReloadScene()
+    {
+        GameManager.instance.ReloadScene();
+    }
 }
