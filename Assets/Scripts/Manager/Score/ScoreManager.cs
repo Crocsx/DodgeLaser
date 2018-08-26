@@ -38,6 +38,6 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(int score)
     {
-        _score = score;
+        _score += score;
     }
 }

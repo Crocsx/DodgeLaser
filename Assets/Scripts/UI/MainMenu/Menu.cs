@@ -22,4 +22,9 @@ public class Menu : MonoBehaviour {
     void OnTouch(TouchStruct touchStruct)
     {
     }
+
+    public void StartGame()
+    {
+        GameManager.instance.LoadScene("Stage01");
+    }
 }

@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114351411959153050}
   - component: {fileID: 210204671085098954}
   - component: {fileID: 58999681925483694}
+  - component: {fileID: 114159377087962730}
   m_Layer: 0
   m_Name: '[PLAYER]'
   m_TagString: Player
@@ -131,7 +132,7 @@ Rigidbody2D:
   m_Mass: 90
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -152,6 +153,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &114159377087962730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856809194465600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2495f87be15f049bbc408784abbb4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionEffect: {fileID: 1638756469894746, guid: da1baf4983e962648a40c3e5b5bfe683,
+    type: 2}
 --- !u!114 &114351411959153050
 MonoBehaviour:
   m_ObjectHideFlags: 1

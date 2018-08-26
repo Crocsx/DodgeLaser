@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     void Awake()
     {
         GameManager.instance.OnStartGame += StartGame;
+        GameManager.instance.OnFinishGame += EndGame;
     }
 
     // Use this for initialization
@@ -30,6 +31,15 @@ public class PlayerMovement : MonoBehaviour {
         cRigidbody.simulated = true;
     }
 
+    // Use this for initialization
+    void EndGame()
+    {
+        GetComponent<CircleCollider2D>().enabled = false;
+        TouchManager.instance.OnStartTouch -= OnTouch;
+        cRigidbody.simulated = true;
+        Destroy(gameObject);
+    }
+
     void OnTouch(TouchStruct touchStruct)
     {
         float currVelocity = cRigidbody.velocity.y;
@@ -39,7 +49,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnDestroy()
     {
-        TouchManager.instance.OnStartTouch -= OnTouch;
+        EndGame();
         GameManager.instance.OnStartGame -= StartGame;
+        GameManager.instance.OnFinishGame -= EndGame;
     }
 }

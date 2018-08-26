@@ -7,23 +7,29 @@ public class EnemySpawner : MonoBehaviour {
     public GameObject Enemy;
     public Transform TOP_LIMIT;
     public Transform BOT_LIMIT;
-    public float WAVE_TIMER = 2.0f;
-     
-    float WaveTimer = 2.0f;
+    public float OFFSET_BORDER = 0.5f;
+    public float START_WAVE_TIMER = 2.0f;
+
+    DifficultyLevel currentDifficulty;
+    float WaveTimer = 1.5f;
     bool isActive = false;
 
     void Awake()
     {
         GameManager.instance.OnStartGame += StartGame;
+        GameManager.instance.OnFinishGame += FinishGame;
     }
-    // Use this for initialization
+
     void StartGame() {
         isActive = true;
-
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void FinishGame()
+    {
+        isActive = false;
+    }
+
+    void Update () {
         if (isActive)
             WaveHandler();
     }
@@ -34,7 +40,7 @@ public class EnemySpawner : MonoBehaviour {
         if (WaveTimer < 0)
         {
             SpawnWave();
-            WaveTimer = WAVE_TIMER;
+            WaveTimer = DifficultyManager.instance.difficultySelectedSettings.nextWaveTimer;
         }
     }
 
@@ -69,14 +75,19 @@ public class EnemySpawner : MonoBehaviour {
 
     Vector2 GetSpawningPoint()
     {
-        Vector3 v = TOP_LIMIT.position - BOT_LIMIT.position;
-        Vector3 target_position = BOT_LIMIT.position + Random.value * v;
+        Vector3 offsetTOP = new Vector3(TOP_LIMIT.position.x, (TOP_LIMIT.position.y - OFFSET_BORDER), TOP_LIMIT.position.z);
+        Vector3 offsetBOT = new Vector3(BOT_LIMIT.position.x, (BOT_LIMIT.position.y + OFFSET_BORDER), BOT_LIMIT.position.z);
+
+        Vector3 range = offsetTOP - offsetBOT;
+        Vector3 target_position = offsetBOT + Random.value * range ;
+
         return target_position;
     }
 
     private void OnDestroy()
     {
         GameManager.instance.OnStartGame -= StartGame;
+        GameManager.instance.OnFinishGame -= FinishGame;
     }
 
     public void OnEnemyDeath(Enemy dead)

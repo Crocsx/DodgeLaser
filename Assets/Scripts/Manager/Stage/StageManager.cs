@@ -49,7 +49,7 @@ public class StageManager : MonoBehaviour {
 
     public void ReturnMenu()
     {
-        GameManager.instance.LoadScene("Home");
+        GameManager.instance.LoadScene("MainMenu");
     }
 
     public void ReloadScene()
