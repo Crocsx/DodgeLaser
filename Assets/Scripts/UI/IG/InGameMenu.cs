@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InGameMenu : MonoBehaviour {
 
+    public GameObject StartMenu;
     public GameObject PauseMenu;
     public GameObject UI;
     public GameObject FinishMenu;
@@ -20,6 +21,7 @@ public class InGameMenu : MonoBehaviour {
 
     private void OnStart()
     {
+        StartMenu.SetActive(false);
         ShowIGMenu();
     }
 
