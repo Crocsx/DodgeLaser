@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
     delegate void eMovement();
     eMovement Movement;
     EnemySpawner spawner;
-    BoxCollider2D collider;
+    BoxCollider2D LaserCollider;
 
     //Timers
     float EnterTimer = 0.5f;
@@ -21,6 +21,11 @@ public class Enemy : MonoBehaviour {
 
     //Laser Params
     public LineRenderer LaserLine;
+    public ParticleSystem particleController;
+    public ParticleSystem particleLeft;
+    public ParticleSystem particleRight;
+    public ParticleSystem particleCenter;
+
     float LASER_MAX_WIDTH = 0.5f;
     float LASER_MIN_WIDTH = 0.05f;
 
@@ -32,8 +37,11 @@ public class Enemy : MonoBehaviour {
         Movement = IdleMovement;
 
 
-        collider = GetComponent<BoxCollider2D>();
-        collider.enabled = false;
+        LaserCollider = GetComponent<BoxCollider2D>();
+        LaserCollider.enabled = false;
+
+        LaserLine.enabled = false;
+        particleController.Stop();
     }
 	
 	// Update is called once per frame
@@ -70,8 +78,17 @@ public class Enemy : MonoBehaviour {
 
         LaserLeft.GetComponent<SpriteRenderer>().color = GetComponent<EnemyType>().color;
         LaserRight.GetComponent<SpriteRenderer>().color = GetComponent<EnemyType>().color;
-        LaserLine.startColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g , GetComponent<EnemyType>().color.b, 0.0f);
-        LaserLine.endColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g, GetComponent<EnemyType>().color.b, 0.0f);
+        LaserLine.startColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g , GetComponent<EnemyType>().color.b, 1f);
+        LaserLine.endColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g, GetComponent<EnemyType>().color.b, 1f);
+
+        ParticleSystem.MainModule mainL = particleLeft.main;
+        mainL.startColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g, GetComponent<EnemyType>().color.b, 1f);
+
+        ParticleSystem.MainModule mainR = particleRight.main;
+        mainR.startColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g, GetComponent<EnemyType>().color.b, 1f);
+
+        ParticleSystem.MainModule mainC = particleCenter.main;
+        mainC.startColor = new Color(GetComponent<EnemyType>().color.r, GetComponent<EnemyType>().color.g, GetComponent<EnemyType>().color.b, 1f);
 
         StartCoroutine(Enter());
     }
@@ -121,7 +138,8 @@ public class Enemy : MonoBehaviour {
         LaserLine.startWidth = LaserLine.startWidth = LASER_MIN_WIDTH;
 
         isAlive = true;
-        collider.enabled = true;
+        LaserCollider.enabled = true;
+        particleController.Play();
         Movement = GetComponent<EnemyType>().Movement;
     }
 

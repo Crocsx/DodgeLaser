@@ -37,7 +37,7 @@ public class Menu : MonoBehaviour
 
     void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Stage01");
     }
 
     // Update is called once per frame
