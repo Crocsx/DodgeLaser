@@ -1,30 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour {
+public class Menu : MonoBehaviour
+{
 
-    private void Awake()
+    public GameObject Home;
+    public GameObject Option;
+    public GameObject Credits;
+
+    GameObject currentPanel;
+
+    private void Start()
     {
-
+        ShowPanel("Home");
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    void OnTouch(TouchStruct touchStruct)
+    public void ShowPanel(string name)
     {
+        DeactivateCurrent();
+        currentPanel = GetPanel(name);
+        Activate();
     }
 
-    public void StartGame()
+    public void LoadGame()
     {
-        GameManager.instance.LoadScene("Stage01");
+        DeactivateCurrent();
+        StartGame();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    void StartGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    // Update is called once per frame
+    void DeactivateCurrent()
+    {
+        if (currentPanel == null)
+            return;
+
+        currentPanel.SetActive(false);
+        currentPanel = null;
+    }
+
+    void Activate()
+    {
+        currentPanel.SetActive(true);
+    }
+
+    GameObject GetPanel(string name)
+    {
+        GameObject panel;
+        switch (name)
+        {
+            case "Options":
+                panel = Option;
+                break;
+            case "Credits":
+                panel = Credits;
+                break;
+            case "Home":
+            default:
+                panel = Home;
+                break;
+        }
+        return panel;
     }
 }

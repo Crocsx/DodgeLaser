@@ -33,10 +33,14 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Scene Event
-    public delegate void onLoadScene(string name);
+    public delegate void onLoadScene(string sceneName);
     public event onLoadScene OnLoadScene;
-    public delegate void onReloadScene(string name);
+    public delegate void onReloadScene(string sceneName);
     public event onReloadScene OnReloadScene;
+    public delegate void onScenePreloadWaitingReady(AsyncOperation sceneLoaded, string sceneName);
+    public event onScenePreloadWaitingReady OnScenePreloadWaitingReady;
+    public delegate void onScenePreloadComplete(AsyncOperation sceneLoaded, string sceneName);
+    public event onScenePreloadComplete OnScenePreloadComplete;
     public delegate void onSceneLoaded(Scene scene, LoadSceneMode sceneMode);
     public event onSceneLoaded OnSceneLoaded;
     #endregion
@@ -109,6 +113,29 @@ public class GameManager : MonoBehaviour
         if (OnLoadScene != null)
             OnLoadScene(LevelName);
     }
+
+    void d_PreLoadScene(string LevelName, bool allowSceneActivation)
+    {
+        StartCoroutine(PreloadMenu(LevelName, allowSceneActivation));
+    }
+
+    IEnumerator PreloadMenu(string LevelName, bool allowSceneActivation)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(LevelName);
+        asyncLoad.allowSceneActivation = allowSceneActivation;
+        while (!asyncLoad.isDone)
+        {
+            if (asyncLoad.progress >= 0.9f)
+            {
+                if (OnScenePreloadWaitingReady != null)
+                    OnScenePreloadWaitingReady(asyncLoad, LevelName);
+            }
+            yield return null;
+        }
+
+        if(OnScenePreloadComplete != null)
+            OnScenePreloadComplete(asyncLoad, LevelName);
+    }
     #endregion
     #endregion
 
@@ -149,7 +176,7 @@ public class GameManager : MonoBehaviour
         setState(GameState.MENU);
         d_EndGame();
     }
-    #endregion
+#endregion
 
     #region Scene
     public void ReloadScene()
@@ -168,10 +195,15 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += d_LoadedScene;
         d_LoadScene(LevelName);
     }
+
+    public void PreloadScene(string LevelName, bool allowSceneActivation)
+    {
+        d_PreLoadScene(LevelName, allowSceneActivation);
+    }
     #endregion
 
-    #region GameState
-    private static void setState(GameState state)
+        #region GameState
+        private static void setState(GameState state)
     {
         gameState = state;
     }
