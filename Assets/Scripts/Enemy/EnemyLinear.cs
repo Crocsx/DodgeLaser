@@ -16,6 +16,6 @@ public class EnemyLinear: MonoBehaviour, EnemyType
 
     public void Movement()
     {
-        transform.position += new Vector3(0, side * linearSpeed, 0);
+        transform.position += new Vector3(0, side * linearSpeed, 0) * TimeManager.instance.deltaTime;
     }
 }

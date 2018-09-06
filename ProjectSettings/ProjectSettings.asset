@@ -151,7 +151,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.GuiltyShard.DodgeMe
+    Android: com.GuiltyShard.DodgeMe1
     Standalone: com.GuiltyShard.DodgeMe
   buildNumber: {}
   AndroidBundleVersionCode: 1
