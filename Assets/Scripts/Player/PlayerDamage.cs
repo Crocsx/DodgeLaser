@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour {
 
-    public bool godmod = true;
     public GameObject ExplosionEffect;
 
 	void Start () {
@@ -13,8 +12,6 @@ public class PlayerDamage : MonoBehaviour {
 
     public void Kill()
     {
-        if (godmod)
-            return;
         Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
         StageManager.instance.FinishStage();
     }

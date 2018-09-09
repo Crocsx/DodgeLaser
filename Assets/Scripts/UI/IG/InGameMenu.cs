@@ -38,6 +38,7 @@ public class InGameMenu : MonoBehaviour
 
     void Start()
     {
+        currentPanel = null;
         ShowPanel("Start");
     }
 
@@ -106,7 +107,7 @@ public class InGameMenu : MonoBehaviour
             case "Start":
                 panel = pStart;
                 break;
-            case "End":
+            case "Finish":
                 panel = pEnd;
                 break;
             case "UI":
@@ -126,5 +127,6 @@ public class InGameMenu : MonoBehaviour
         GameManager.instance.OnPauseGame -= OnPause;
         GameManager.instance.OnFinishGame -= OnFinish;
         GameManager.instance.OnStartGame -= OnStart;
+        currentPanel = null;
     }
 }

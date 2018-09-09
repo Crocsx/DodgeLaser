@@ -19,7 +19,6 @@ public class EnemyDiagonal : MonoBehaviour, EnemyType
 
     public void Movement()
     {
-        Debug.Log(new Vector3(0, side * linearSpeed, 0));
         parent.LaserLeft.transform.position += new Vector3(0, side * linearSpeed, 0) * TimeManager.instance.deltaTime;
         parent.LaserRight.transform.position += new Vector3(0, -side * linearSpeed, 0) * TimeManager.instance.deltaTime;
     }

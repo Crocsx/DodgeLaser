@@ -17,6 +17,17 @@ public class ScoreManager : MonoBehaviour
         }
     }
     private int _score;
+
+    public int highScore
+    {
+        get
+        {
+            int hScore = 0;
+            if (PlayerPrefs.HasKey("highscore"))
+                hScore = PlayerPrefs.GetInt("highscore");
+            return hScore;
+        }
+    }
     #endregion
 
     #region Singleton Initialization 
@@ -33,11 +44,26 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.OnStartGame += OnStart;
+        GameManager.instance.OnFinishGame += OnFinish;
         _score = 0;
     }
 
     public void AddScore(int score)
     {
         _score += score;
+    }
+
+    void OnStart()
+    {
+        _score = 0;
+    }
+
+    void OnFinish()
+    {
+        if(highScore < score)
+        {
+            PlayerPrefs.SetInt("highscore", score);
+        }
     }
 }
