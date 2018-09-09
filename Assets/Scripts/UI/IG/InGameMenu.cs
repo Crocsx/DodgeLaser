@@ -1,72 +1,123 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class InGameMenu : MonoBehaviour {
+public class InGameMenu : MonoBehaviour
+{
 
-    public GameObject StartMenu;
-    public GameObject PauseMenu;
-    public GameObject UI;
-    public GameObject FinishMenu;
+
+
+    public GameObject pStart;
+    public GameObject pPause;
+    public GameObject pUI;
+    public GameObject pEnd;
+
+    GameObject currentPanel;
+
+    public static InGameMenu instance = null;
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+        {
+            Debug.LogWarning("IGMenu.Awake() - instance already exists!");
+            Destroy(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
+        GameManager.instance.OnInitGame += OnInit;
         GameManager.instance.OnPauseGame += OnPause;
         GameManager.instance.OnResumeGame += OnResume;
         GameManager.instance.OnStartGame += OnStart;
         GameManager.instance.OnFinishGame += OnFinish;
     }
 
+    void Start()
+    {
+        ShowPanel("Start");
+    }
+
+    public void ShowPanel(string name)
+    {
+        DeactivateCurrent();
+        Activate(GetPanel(name));
+    }
+
+    void DeactivateCurrent()
+    {
+        if (currentPanel == null)
+            return;
+
+        currentPanel.SetActive(false);
+        currentPanel = null;
+    }
+
+    public void BackMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void ReloadStage(string name)
+    {
+        DeactivateCurrent();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnInit()
+    {
+        ShowPanel("Start");
+    }
 
     private void OnStart()
     {
-        StartMenu.SetActive(false);
-        ShowIGMenu();
+        ShowPanel("UI");
     }
 
     private void OnPause()
     {
-        HideIGMenu();
-        ShowPauseMenu();
+        ShowPanel("Pause");
     }
 
     private void OnResume()
     {
-        HidePauseMenu();
-        ShowIGMenu();
+        ShowPanel("UI");
     }
 
     private void OnFinish()
     {
-        HideIGMenu();
-        HidePauseMenu();
-        ShowFinishMenu();
+        ShowPanel("Finish");
     }
 
-    void ShowIGMenu()
+    void Activate(GameObject panel)
     {
-        UI.SetActive(true);
+        currentPanel = panel;
+        currentPanel.SetActive(true);
     }
 
-    void HideIGMenu()
+    GameObject GetPanel(string name)
     {
-        UI.SetActive(false);
-    }
-
-    void ShowPauseMenu()
-    {
-        PauseMenu.SetActive(true);
-    }
-
-    void ShowFinishMenu()
-    {
-        FinishMenu.SetActive(true);
-    }
-
-    public void HidePauseMenu()
-    {
-        PauseMenu.SetActive(false);
+        GameObject panel;
+        switch (name)
+        {
+            case "Start":
+                panel = pStart;
+                break;
+            case "End":
+                panel = pEnd;
+                break;
+            case "UI":
+                panel = pUI;
+                break;
+            case "Pause":
+            default:
+                panel = pPause;
+                break;
+        }
+        return panel;
     }
 
     private void OnDestroy()

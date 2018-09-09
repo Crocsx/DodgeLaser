@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -143,10 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7a53f1f3bec9a4bb406a5c731f8bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartMenu: {fileID: 233285691}
-  PauseMenu: {fileID: 2061652040}
-  UI: {fileID: 1664651768}
-  FinishMenu: {fileID: 270435697}
+  pStart: {fileID: 233285691}
+  pPause: {fileID: 2061652040}
+  pUI: {fileID: 1664651768}
+  pEnd: {fileID: 270435697}
 --- !u!114 &166694544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1963,6 +1963,7 @@ GameObject:
   - component: {fileID: 2061652043}
   - component: {fileID: 2061652042}
   - component: {fileID: 2061652041}
+  - component: {fileID: 2061652045}
   - component: {fileID: 2061652044}
   m_Layer: 5
   m_Name: '[PAUSE]'
@@ -1970,7 +1971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2061652041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,22 +2026,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &2061652044
-Animation:
+--- !u!114 &2061652044
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2061652040}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f6c536ed9210d49b82e0a93ccc6f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2061652045
+Animator:
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2061652040}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58cad0183f07f51499a1a770cb6da3e0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2092158489
 GameObject:
   m_ObjectHideFlags: 0

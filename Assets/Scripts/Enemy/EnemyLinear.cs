@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyLinear: MonoBehaviour, EnemyType
 {
     public Color color { get; set; }
-    public float linearSpeed = 0.01f;
+    public float linearSpeed = 0.5f;
     public int side;
 
     void Awake()

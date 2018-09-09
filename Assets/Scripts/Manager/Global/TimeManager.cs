@@ -95,14 +95,12 @@ public class TimeManager : MonoBehaviour
         _modifierMainBackup = _modifierMain;
         _modifierOptionalBackup = _modifierOptional;
 
-        Time.timeScale = 0;
         _modifierMain = 0;
         _modifierOptional = 0;
     }
 
     private void OnResume()
     {
-        Time.timeScale = _modifierMainBackup;
         _modifierMain = _modifierMainBackup;
         _modifierOptional = _modifierOptionalBackup;
     }
