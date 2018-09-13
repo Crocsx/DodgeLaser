@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour {
     public Transform LaserLeft;
     public Transform LaserRight;
 
+    //LIMITS
+    public Transform LimitTop;
+    public Transform LimitBot;
+
     //Laser Params
     public LineRenderer LaserLine;
     public ParticleSystem particleLeft;
@@ -44,6 +48,7 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        CheckLimit();
         Movement();
 
         if (!isAlive)
@@ -70,6 +75,11 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    void CheckLimit()
+    {
+        if (transform.position.y > LimitTop.position.y || transform.position.y < LimitBot.position.y)
+            AliveTimer = -1;
+    }
     void StopParticle()
     {
         particleCenter.Stop();

@@ -30,6 +30,11 @@ public class Menu : MonoBehaviour
         StartGame();
     }
 
+    public void ShowAchievement()
+    {
+        Achievements.instance.ShowAchievement();
+    }
+
     public void Quit()
     {
         Application.Quit();

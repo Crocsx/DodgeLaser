@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour {
         float currVelocity = cRigidbody.velocity.y;
         Vector2 newVelocity = new Vector2(0, Mathf.Clamp(currVelocity + PUSH_FORCE, -Mathf.Infinity, MAX_VELOCITY));
         cRigidbody.velocity = newVelocity;
+        Achievements.instance.UpgradeJump();
     }
 
     private void OnDestroy()

@@ -6,6 +6,9 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance = null;
 
+    public delegate void onNewHighScore(int score);
+    public event onNewHighScore OnNewHighScore;
+
     public static int SCORE_ENEMY_DEAD = 1;
 
     #region Variables
@@ -39,6 +42,7 @@ public class ScoreManager : MonoBehaviour
 
         else if (instance != this)
             Destroy(gameObject);
+        DontDestroyOnLoad(transform.gameObject);
     }
     #endregion
 
@@ -64,6 +68,10 @@ public class ScoreManager : MonoBehaviour
         if(highScore < score)
         {
             PlayerPrefs.SetInt("highscore", score);
+            if(OnNewHighScore != null)
+            {
+                OnNewHighScore(score);
+            }
         }
     }
 }

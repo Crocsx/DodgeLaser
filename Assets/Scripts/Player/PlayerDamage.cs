@@ -13,6 +13,11 @@ public class PlayerDamage : MonoBehaviour {
     public void Kill()
     {
         Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
+        Invoke("End", ExplosionEffect.GetComponent<ParticleSystem>().main.duration);
+    }
+
+    public void End()
+    {
         StageManager.instance.FinishStage();
     }
 }
